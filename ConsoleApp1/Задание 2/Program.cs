@@ -1,13 +1,13 @@
 ﻿namespace ConsoleApp1
 {
-    internal class Program
+    using System;
+
+    internal class math
     {
         static public void Main(string[] args)
         {
             Console.WriteLine("Введите среднее арифметеческое  число:");
-            double x;
-            double y;
-            double z;
+            
             double sum;
             double result;
             double a = Convert.ToDouble(Console.ReadLine());
