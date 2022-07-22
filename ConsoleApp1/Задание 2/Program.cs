@@ -2,6 +2,7 @@
 {
     using System;
 
+    using ClassLibrary1 ;
     internal class math
     {
         static public void Main(string[] args)
@@ -15,7 +16,7 @@
             double c = Convert.ToDouble(Console.ReadLine());
             sum = a + b + c;
             result = sum / 3;
-            Console.WriteLine($"{result}");
+            Console.WriteLine($"Среднее арефметическое число:{result}");
         }
 
         }
