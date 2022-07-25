@@ -1,23 +1,16 @@
 ﻿namespace ConsoleApp1
 {
     using System;
-
-    using ClassLibrary1 ;
-    internal class math
-    {
-        static public void Main(string[] args)
+    using ClassLibrary1;
+    internal class Person
+    {static public void Main()
         {
-            Console.WriteLine("Введите среднее арифметеческое  число:");
-            
-            double sum;
-            double result;
+            Console.WriteLine("Введите три числа для вычесления среднего арифметеческого  числа:");
             double a = Convert.ToDouble(Console.ReadLine());
             double b = Convert.ToDouble(Console.ReadLine());
             double c = Convert.ToDouble(Console.ReadLine());
-            sum = a + b + c;
-            result = sum / 3;
-            Console.WriteLine($"Среднее арефметическое число:{result}");
+            Console.WriteLine("Результат вычеление:");
+            Console.WriteLine(MathCalculator.GetMean(a, b, c));                                           
         }
-
         }
-}
+        }
