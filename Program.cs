@@ -1,66 +1,73 @@
-﻿namespace ConsoleApp6
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.X86;
+
+namespace Камень_ножницы_бумага_2._1
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Програма для вычесления обратной матрицы ");
-            int a11;
-            int a21;
-            int a31;
-            //1 РЯД
-            int a12;
-            int a22;
-            int a32;
-            //2 РЯД
-            int a13;
-            int a23;
-            int a33;
-            // 3РЯД 
-            //int j;
-            //int k;
-            //int l;
-            int rez1;
-            int rez2;
-            int rez3;
-            int rez4;
-            int rez5;
-            int rez6;
-            int all1;
-            int all2;
-            int finalresual;
-            int тр1;
-            Console.WriteLine("Ввидите числа  первой обратной матрицы 4 вертикальной СТРОКИ матрицы");
-            a11 = Convert.ToInt32(Console.ReadLine());
-            a21= Convert.ToInt32(Console.ReadLine()); // b = Convert.ToDouble(Console.ReadLine());
-            a31 = Convert.ToInt32(Console.ReadLine());       //c = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Ввидите числа второй вертикальной СТРОКИ  матрицы");
-            a12 = Convert.ToInt32(Console.ReadLine());//d= Convert.ToDouble(Console.ReadLine());
-            a22 = Convert.ToInt32(Console.ReadLine());
-            a32 = Convert.ToInt32(Console.ReadLine()); //f = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Ввидите числа ТРЕТИЙ строки вертикальной СТРОКИ  матрицы");
-            a13 = Convert.ToInt32(Console.ReadLine());//g = Convert.ToDouble(Console.ReadLine());
-            a23 = Convert.ToInt32(Console.ReadLine()); //h = Convert.ToDouble(Console.ReadLine());
-            a33 = Convert.ToInt32(Console.ReadLine());
-            rez1 = a11*a22*a33;
-            Console.WriteLine($"1значения{rez1}");
-            rez2 = a32*a13*a21;
-            Console.WriteLine($"1значения{rez2}");
-            rez3 = a12*a31*a23;
-            Console.WriteLine($"1значения{rez3}");
-            rez4 = a13*a22*a31;
-            Console.WriteLine($"1значения{rez4}");
-            rez5 = a23*a32*a11;
-            Console.WriteLine($"1значения{rez5}");
-            rez6 = a12*a21*a33;
-            Console.WriteLine($"1значения{rez6}");
-            all1 = rez1+rez2+rez3;
-            Console.WriteLine($"1значения{all1}");
-            all2 = rez4 + rez5 + rez6;
-            Console.WriteLine($"1значения{all2}");
-            finalresual = all1 - all2;
-            Console.WriteLine($"РЕЗУЛЬТАТ {finalresual}");
+            for (; ; ) {
+                Random random = new Random();
+                int CheckUserWin = random.Next(1, 4);
+                int computerChoice = CheckUserWin;
+                Console.WriteLine();
+                Console.WriteLine("1.Камень");
+                Console.WriteLine("2.Ножницы");
+                Console.WriteLine("3.Бумага");
 
+                Console.Write("Ваш выбор? — ");
+                string Using = Console.ReadLine();
+                Console.WriteLine($"Выбор копьютера:{computerChoice}");
+                if (int.TryParse(Using, out int Player))
+
+                    Console.WriteLine($"Прошло проверку на число {Using} !");
+
+                if (Player > 3 || Player < 1)
+                    Console.WriteLine($"Не верное число {Player} !");
+                else
+                
+                // Условия для победы
+                    if ((Player == 1 && computerChoice == 2) ||
+                        (Player == 3 && computerChoice == 1) ||
+                        (Player == 2 && computerChoice == 3)
+                       )
+                        Console.WriteLine("Ты победил!");
+                // Условия для поражения
+                    if ((Player == 1 && computerChoice == 3) ||
+                        (Player == 2 && computerChoice == 1) ||
+                        (Player == 3 && computerChoice == 2))
+                        Console.WriteLine("Вы проиграли");
+                // Условия равенства
+                    else if (Player == computerChoice)
+                        Console.WriteLine("Ничья");
+
+                    else Console.WriteLine();
+
+                   /* if (Player == 3 && computerChoice == 1)
+                        Console.WriteLine("Ты победил!");   */
+  
+                   /* if (Player == 2 && computerChoice == 3)
+                        Console.WriteLine("Ты победил!");*/  
+                      /* if (Player == 2 && computerChoice == 1)
+                        Console.WriteLine("Вы проиграли");
+
+
+                    if (Player == 3 && computerChoice == 2)
+                        Console.WriteLine("Вы проиграли");*/                 
+                   /*if (Player > computerChoice && Player > computerChoice)
+                        Console.WriteLine("Ты победил!");
+                    if (Player < computerChoice&& computerChoice > Player)
+                    Console.WriteLine(" Вы проиграли");
+                    else if (Player == computerChoice && Player == computerChoice)
+                        Console.WriteLine("Ничья");
+                    //Работа логики  камня 
+                   // else if (Player == computerChoice && Player == computerChoice)
+                   //     Console.WriteLine("Ничья2");
+                    */
+                 
+
+            }
         }
     }
 }
