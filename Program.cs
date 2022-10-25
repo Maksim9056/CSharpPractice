@@ -1,72 +1,31 @@
-﻿using System.Runtime.CompilerServices;
-using System.Runtime.Intrinsics.X86;
-
-namespace Камень_ножницы_бумага_2._1
+﻿namespace Пробник
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            for (; ; ) {
-                Random random = new Random();
-                int CheckUserWin = random.Next(1, 4);
-                int computerChoice = CheckUserWin;
-                Console.WriteLine();
-                Console.WriteLine("1.Камень");
-                Console.WriteLine("2.Ножницы");
-                Console.WriteLine("3.Бумага");
+            var player = new Class1();
 
-                Console.Write("Ваш выбор? — ");
-                string Using = Console.ReadLine();
-                Console.WriteLine($"Выбор копьютера:{computerChoice}");
-                if (int.TryParse(Using, out int Player))
+            char responseE;
 
-                    Console.WriteLine($"Прошло проверку на число {Using} !");
+            Console.WriteLine("Сыграли бы вы в игру «камень-ножницы» (y или n)?");
+            responseE = Convert.ToChar(Console.ReadLine());
 
-                if (Player > 3 || Player < 1)
-                    Console.WriteLine($"Не верное число {Player} !");
-                else
-                
-                // Условия для победы
-                    if ((Player == 1 && computerChoice == 2) ||
-                        (Player == 3 && computerChoice == 1) ||
-                        (Player == 2 && computerChoice == 3)
-                       )
-                        Console.WriteLine("Ты победил!");
-                // Условия для поражения
-                    if ((Player == 1 && computerChoice == 3) ||
-                        (Player == 2 && computerChoice == 1) ||
-                        (Player == 3 && computerChoice == 2))
-                        Console.WriteLine("Вы проиграли");
-                // Условия равенства
-                    else if (Player == computerChoice)
-                        Console.WriteLine("Ничья");
+            while (player.validateRespomse(responseE) == false)
+            {
+                Console.WriteLine("Неправильный ввод . Пожалуйста, повторите свой выбор ");
+                responseE = Convert.ToChar(Console.ReadLine());
+                if (responseE == 'Y' || responseE == 'y')
 
-                    else Console.WriteLine();
+                {
+                    Console.Clear();
+                    player.PlayGame();
 
-                   /* if (Player == 3 && computerChoice == 1)
-                        Console.WriteLine("Ты победил!");   */
-  
-                   /* if (Player == 2 && computerChoice == 3)
-                        Console.WriteLine("Ты победил!");*/  
-                      /* if (Player == 2 && computerChoice == 1)
-                        Console.WriteLine("Вы проиграли");
-
-
-                    if (Player == 3 && computerChoice == 2)
-                        Console.WriteLine("Вы проиграли");*/                 
-                   /*if (Player > computerChoice && Player > computerChoice)
-                        Console.WriteLine("Ты победил!");
-                    if (Player < computerChoice&& computerChoice > Player)
-                    Console.WriteLine(" Вы проиграли");
-                    else if (Player == computerChoice && Player == computerChoice)
-                        Console.WriteLine("Ничья");
-                    //Работа логики  камня 
-                   // else if (Player == computerChoice && Player == computerChoice)
-                   //     Console.WriteLine("Ничья2");
-                    */
-                 
-
+                }
+                {
+                    Console.WriteLine("До свидания");
+                    Console.ReadLine();
+                }
             }
         }
     }
