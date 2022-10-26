@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Матрица 3на 3/1.0.0": {
+        "runtime": {
+          "Матрица 3на 3.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Матрица 3на 3/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
