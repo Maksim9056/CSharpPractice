@@ -1,31 +1,21 @@
-﻿namespace Пробник
+﻿namespace personXml
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var player = new Class1();
+            var person = new Person();
+
 
             char responseE;
 
-            Console.WriteLine("Сыграли бы вы в игру «камень-ножницы» (y или n)?");
+            Console.WriteLine("Ввидите данные сотрудника (y или no)?");
             responseE = Convert.ToChar(Console.ReadLine());
 
-            while (player.validateRespomse(responseE) == false)
+            if (responseE == 'Y' || responseE == 'y')
             {
-                Console.WriteLine("Неправильный ввод . Пожалуйста, повторите свой выбор ");
-                responseE = Convert.ToChar(Console.ReadLine());
-                if (responseE == 'Y' || responseE == 'y')
-
-                {
-                    Console.Clear();
-                    player.PlayGame();
-
-                }
-                {
-                    Console.WriteLine("До свидания");
-                    Console.ReadLine();
-                }
+                person.Start();
+               
             }
         }
     }
