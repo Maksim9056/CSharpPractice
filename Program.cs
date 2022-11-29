@@ -9,14 +9,20 @@
 
             char responseE;
 
-            Console.WriteLine("Ввидите данные сотрудника (y или no)?");
+            Console.WriteLine("Ввидите данные сотрудника (y или n)?");
             responseE = Convert.ToChar(Console.ReadLine());
 
             if (responseE == 'Y' || responseE == 'y')
             {
-                person.Start();
-               
+                person.Person2();
             }
+            else
+            {
+                Console.WriteLine("Неправильный ввод символ Y.Повторите попытку вести даные  сотрудника y  ");
+                responseE = Convert.ToChar(Console.ReadLine());
+                person.Person2();
+            }
+            Console.WriteLine("До свидания");
         }
     }
 }
