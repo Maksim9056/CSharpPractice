@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Serialization;
 
-namespace personXml
+namespace ConsoleApp2
 {
     public class Person
     {
@@ -35,7 +33,7 @@ namespace personXml
                 return false;
             return true;
         }
-        public bool validateRespomse (char responsE)
+        public bool validateRespomse(char responsE)
         {
             if (Char.ToUpper(responsE) != 'Y' && Char.ToUpper(responsE) != 'y')
                 return true;
@@ -47,13 +45,20 @@ namespace personXml
             Console.WriteLine("Z- record");
             Console.WriteLine("Пожалуйста, сделайте свой выбор:");
         }
-        
+
         public void Person2()
-        { Screen();
-   UserSelector = Convert.ToChar(Console.ReadLine());
-            while (validateSelection())
-               
-         
+        {
+            Screen();
+            UserSelector = Convert.ToChar(Console.ReadLine());
+
+            if (UserSelector == 'S' || UserSelector == 'Z')
+            {
+
+
+
+               while (validateSelection())
+
+
             {
 
                 switch (Char.ToUpper(UserSelector))
@@ -67,8 +72,14 @@ namespace personXml
                         throw new Exception("Непредвиденная ошибка");
 
                 }
-           
+
             }
+            }
+            else
+            {
+                Person2();
+            }
+            
         }
         public void Запись()
         {
@@ -76,7 +87,7 @@ namespace personXml
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
             using (FileStream fs = new FileStream("person.xml", FileMode.Open))
             {
-                Person[]? person2 = xmlSerializer.Deserialize(fs) as Person[];
+                Person[] person2 = xmlSerializer.Deserialize(fs) as Person[];
                 Console.WriteLine();
                 Console.WriteLine("Файл из xml считывает ");
 
@@ -105,94 +116,92 @@ namespace personXml
             }
 
         }
-                //return  ;}
-            public void Start()
+        //return  ;}
+        public void Start()
+        {
+
+            Person[] person = new Person[]
+            {
+             new Person(),
+             new Person(),
+            };
+
+            char responseE;
+
+            foreach (Person tr in person)
             {
 
-                Person[] person = new Person[]
+                Console.Clear();
+
+                Console.WriteLine("Ввидите имя");
+                tr.Name = Console.ReadLine();
+                Console.WriteLine("Введите дату рождения в формате  (День.Месяц.Год):");
+
+                tr.DateofBirthder = Convert.ToDateTime(Console.ReadLine());
+
+
+                Console.WriteLine("Ввидите Пол : или ");
+
+                Console.WriteLine("Мужской или Женский");
+                tr.Gender = Console.ReadLine();
+                if (tr.Gender == "Мужской" || tr.Gender == "Женский")
                 {
-                new Person(),
-
-
-                };
-
-                char responseE;
-
-                foreach (Person tr in person)
-                {
-
-                    Console.Clear();
-
-                    Console.WriteLine("Ввидите имя");
-                    tr.Name = Console.ReadLine();
-                    Console.WriteLine("Введите дату рождения в формате  (День.Месяц.Год):");
-
-                    tr.DateofBirthder = Convert.ToDateTime(Console.ReadLine());
-
-                    Console.WriteLine("Ввидите Пол : или ");
-
-                    Console.WriteLine("Мужской или Женский");
-                    tr.Gender = Console.ReadLine();
-                    if (tr.Gender == "Мужской" || tr.Gender == "Женский")
-                    {
-                        // Console.WriteLine($"Пол:{tr.Gender}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{tr.Gender} не выбран повторите снова");
-                        tr.Gender = Console.ReadLine();
-
-                    }
-
-                }
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
-                using (FileStream fs = new FileStream("person.xml", FileMode.Create))
-                {
-                    xmlSerializer.Serialize(fs, person);
-                    Console.WriteLine();
-                    Console.WriteLine("Файл из xml сохраняет ");
-                    if (person != null)
-                    {
-                        foreach (Person tr in person)
-                        {
-                            Console.WriteLine($"Name: {tr.Name}");
-                            Console.WriteLine($"Date of birth: {tr.DateofBirthder}");
-                            Console.WriteLine($"Gender: {tr.Gender}");
-                        }
-                    }
-                }
-                using (FileStream fs = new FileStream("person.xml", FileMode.Open))
-                {
-                    Person? person2 = xmlSerializer.Deserialize(fs) as Person;
-                    Console.WriteLine();
-                    Console.WriteLine("Файл из xml считывает ");
-
-                    foreach (Person tr1 in person)
-                        {
-                            Console.WriteLine($"Name: {tr1.Name}");
-                            Console.WriteLine($"date1.ToShortDateString()){tr1.DateofBirthder}");
-                            Console.WriteLine($"Gender: {tr1.Gender}");
-
-                        }
-
-
-                    
-                }
-                Console.WriteLine(" Желайте ввести данные повторно сотрудника нажмите на y ");
-                responseE = Convert.ToChar(Console.ReadLine());
-                if (responseE == 'Y' || responseE == 'y')
-                {
-                    Start();
+                    // Console.WriteLine($"Пол:{tr.Gender}");
                 }
                 else
                 {
-                    Console.Clear();
+                    Console.WriteLine($"{tr.Gender} не выбран повторите снова");
+                    tr.Gender = Console.ReadLine();
+
+                }
+
+            }
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
+            using (FileStream fs = new FileStream("person.xml", FileMode.OpenOrCreate))
+            {
+                xmlSerializer.Serialize(fs, person);
+                Console.WriteLine();
+                Console.WriteLine("Файл из xml сохраняет ");
+                if (person != null)
+                {
+                    foreach (Person tr in person)
+                    {
+                        Console.WriteLine($"Name: {tr.Name}");
+                        Console.WriteLine($"Date of birth: {tr.DateofBirthder}");
+                        Console.WriteLine($"Gender: {tr.Gender}");
+                    }
+                }
+            }
+            using (FileStream fs = new FileStream("person.xml", FileMode.Open))
+            {
+                Person person2 = xmlSerializer.Deserialize(fs) as Person;
+                Console.WriteLine();
+                Console.WriteLine("Файл из xml считывает ");
+
+                foreach (Person tr1 in person)
+                {
+                    Console.WriteLine($"Name: {tr1.Name}");
+                    Console.WriteLine($"date1.ToShortDateString()){tr1.DateofBirthder}");
+                    Console.WriteLine($"Gender: {tr1.Gender}");
+
                 }
 
 
+
             }
+            Console.WriteLine(" Желайте ввести данные повторно сотрудника нажмите на y ");
+            responseE = Convert.ToChar(Console.ReadLine());
+            if (responseE == 'Y' || responseE == 'y')
+            {
+                Start();
+            }
+            else
+            {
+                Console.Clear();
+                Person2();
+            }
+
+
         }
     }
-
-
-
+}
