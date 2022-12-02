@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace personXml
+namespace ConsoleApp2
 {
     public class Person
     {
@@ -49,12 +51,21 @@ namespace personXml
             Console.WriteLine("Пожалуйста, сделайте свой выбор:");
         }
 
-        public void Person2()
-        {
+        public void Person2() { 
+           //using(FileStream fs = new FileStream ("person1.xml" ,FileMode.));
+           // { ReadState  PERSON =    ReadState.EndOfFile;
+
+           //     Console.WriteLine(PERSON);
+           //     Console.WriteLine();
+           //     XmlWriter.Create("person1.xml");
+           //     Console.WriteLine(Console.Out);
+
+          
+           // }
             Screen();
             UserSelector = Convert.ToChar(Console.ReadLine());
 
-            if (UserSelector == 'S' || UserSelector == 'Z' )
+            if (UserSelector == 'S' || UserSelector == 'Z')
             {
 
 
@@ -72,21 +83,24 @@ namespace personXml
                         case 'Z':
                             Запись();
                             break;
+                            Console.Clear();
+                Console.WriteLine("До свидания");
                     }
 
                 }
             }
             else
             {
-                Console.Clear();
+                Console.WriteLine("До свидания");
             }
 
         }
         public void Запись()
         {
+            
             char responseE;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
-            using (FileStream fs = new FileStream("person1.xml", FileMode.Open))
+            using (FileStream fs = new FileStream("person1.xml" , FileMode.Open))
             {
                 Person[] person2 = xmlSerializer.Deserialize(fs) as Person[];
                 Console.WriteLine();
@@ -101,7 +115,7 @@ namespace personXml
                         Console.WriteLine($"Gender: {tr.Gender}");
 
                     }
-
+                    XmlWriter.ReferenceEquals( Console.Out, Console.Out );
 
                 }
             }
@@ -128,7 +142,13 @@ namespace personXml
             };
 
             char responseE;
-
+            
+            //DirectoryInfo di = new DirectoryInfo("C:\\Users\\Максим\\source\\repos\\ConsoleApp2\\bin\\Debug\\person1.xml");
+            //FileInfo[] TXTFiles = di.GetFiles("*.xml");
+            //if (TXTFiles.Length == 0)
+            //{
+            //  Console.WriteLine("no files present");
+            //}
             foreach (Person tr in person)
             {
 
@@ -147,7 +167,7 @@ namespace personXml
                 tr.Gender = Console.ReadLine();
                 if (tr.Gender == "Мужской" || tr.Gender == "Женский")
                 {
-                
+
                 }
                 else
                 {
@@ -157,10 +177,17 @@ namespace personXml
                 }
 
             }
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
-            using (FileStream fs = new FileStream("person1.xml", FileMode.OpenOrCreate))
+            try
             {
-                xmlSerializer.Serialize(fs, person);
+
+            }
+
+            catch (Exception e) { 
+
+            XmlSerializer xmlSerializer1 = new XmlSerializer(typeof(Person[]));
+            using (FileStream fs = new FileStream("person1.xml", mode: FileMode.OpenOrCreate))
+            {
+                xmlSerializer1.Serialize(fs, person);
                 Console.WriteLine();
                 Console.WriteLine("Файл из xml сохраняет ");
                 if (person != null)
@@ -172,12 +199,13 @@ namespace personXml
                         Console.WriteLine($"Gender: {tr.Gender}");
                     }
                 }
-            }
+            }}
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
             using (FileStream fs = new FileStream("person1.xml", FileMode.Open))
-            {  
+            {
                 Person person2 = xmlSerializer.Deserialize(fs) as Person;
-            
-                Console.WriteLine();
+                ReadState PERSON = ReadState.Error;
+                Console.WriteLine(PERSON);
                 Console.WriteLine("Файл из xml считывает ");
 
                 foreach (Person tr1 in person)
@@ -199,11 +227,6 @@ namespace personXml
                 Person2();
             }
 
-
         }
     }
-        }
-   
-
-
-
+}
