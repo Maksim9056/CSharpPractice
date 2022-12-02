@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
-namespace ConsoleApp2
+namespace personXml
 {
     public class Person
     {
@@ -43,6 +45,7 @@ namespace ConsoleApp2
         {
             Console.WriteLine("S=Start");
             Console.WriteLine("Z- record");
+            Console.WriteLine("n-");
             Console.WriteLine("Пожалуйста, сделайте свой выбор:");
         }
 
@@ -51,41 +54,39 @@ namespace ConsoleApp2
             Screen();
             UserSelector = Convert.ToChar(Console.ReadLine());
 
-            if (UserSelector == 'S' || UserSelector == 'Z')
+            if (UserSelector == 'S' || UserSelector == 'Z' )
             {
 
 
 
-               while (validateSelection())
+                while (validateSelection())
 
 
-            {
-
-                switch (Char.ToUpper(UserSelector))
                 {
-                    case 'S':
-                        Start();
-                        break;
-                    case 'Z':
-                        Запись();
-                        break;
-                        throw new Exception("Непредвиденная ошибка");
+
+                    switch (Char.ToUpper(UserSelector))
+                    {
+                        case 'S':
+                            Start();
+                            break;
+                        case 'Z':
+                            Запись();
+                            break;
+                    }
 
                 }
-
-            }
             }
             else
             {
-                Person2();
+                Console.Clear();
             }
-            
+
         }
         public void Запись()
         {
             char responseE;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
-            using (FileStream fs = new FileStream("person.xml", FileMode.Open))
+            using (FileStream fs = new FileStream("person1.xml", FileMode.Open))
             {
                 Person[] person2 = xmlSerializer.Deserialize(fs) as Person[];
                 Console.WriteLine();
@@ -146,7 +147,7 @@ namespace ConsoleApp2
                 tr.Gender = Console.ReadLine();
                 if (tr.Gender == "Мужской" || tr.Gender == "Женский")
                 {
-                    // Console.WriteLine($"Пол:{tr.Gender}");
+                
                 }
                 else
                 {
@@ -157,7 +158,7 @@ namespace ConsoleApp2
 
             }
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person[]));
-            using (FileStream fs = new FileStream("person.xml", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("person1.xml", FileMode.OpenOrCreate))
             {
                 xmlSerializer.Serialize(fs, person);
                 Console.WriteLine();
@@ -172,9 +173,10 @@ namespace ConsoleApp2
                     }
                 }
             }
-            using (FileStream fs = new FileStream("person.xml", FileMode.Open))
-            {
+            using (FileStream fs = new FileStream("person1.xml", FileMode.Open))
+            {  
                 Person person2 = xmlSerializer.Deserialize(fs) as Person;
+            
                 Console.WriteLine();
                 Console.WriteLine("Файл из xml считывает ");
 
@@ -183,13 +185,9 @@ namespace ConsoleApp2
                     Console.WriteLine($"Name: {tr1.Name}");
                     Console.WriteLine($"date1.ToShortDateString()){tr1.DateofBirthder}");
                     Console.WriteLine($"Gender: {tr1.Gender}");
-
                 }
-
-
-
             }
-            Console.WriteLine(" Желайте ввести данные повторно сотрудника нажмите на y ");
+            Console.WriteLine(" Желайте ввести данные повторно сотрудника нажмите на y или n ");
             responseE = Convert.ToChar(Console.ReadLine());
             if (responseE == 'Y' || responseE == 'y')
             {
@@ -204,4 +202,8 @@ namespace ConsoleApp2
 
         }
     }
-}
+        }
+   
+
+
+
