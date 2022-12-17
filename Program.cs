@@ -1,4 +1,6 @@
-﻿namespace personXml
+﻿using System;
+
+namespace xml
 {
     internal class Program
     {
@@ -13,16 +15,17 @@
             responseE = Convert.ToChar(Console.ReadLine());
 
             if (responseE == 'Y' || responseE == 'y')
-                person.Person2();
-            else if (responseE == 'Y' || responseE == 'y') { 
+                person.Person2(null);
+            else if (responseE == 'Y' || responseE == 'y')
+            {
 
                 Console.WriteLine("Неправильный ввод символ Y.Повторите попытку вести даные  сотрудника y  ");
-            responseE = Convert.ToChar(Console.ReadLine());
-            person.Person2();
+                responseE = Convert.ToChar(Console.ReadLine());
+                person.Person2(null);
 
-        }
+            }
             else
-               Console.WriteLine("До свидания");
+                Console.WriteLine("До свидания");
         }
     }
 }
